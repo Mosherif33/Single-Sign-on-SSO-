@@ -21,7 +21,7 @@ class AuthServiceProvider extends ServiceProvider
      * Register any authentication / authorization services.
      */
     public function boot(): void
-{
+    {
     $this->registerPolicies();
 
     // Remove the Passport::routes() call from here
@@ -29,5 +29,9 @@ class AuthServiceProvider extends ServiceProvider
     Passport::tokensExpireIn(now()->addDays(1));
     Passport::refreshTokensExpireIn(now()->addDays(30));
     Passport::personalAccessTokensExpireIn(now()->addMonths(6));
-}
+
+    Passport::tokensCan([
+        'view-user' => 'View user information'
+    ]);
+    }
 }
